@@ -1,0 +1,152 @@
+/* Project1*/ 
+use project1;
+select *  from projectinfo;
+select * from projectinfo order by projectName;
+select * from projectinfo order by projectName desc ;
+insert into projectinfo  values(5,  'Banking', 'Better banking services', '2009-11-23', '2013-05-21');
+insert into projectinfo values(10, 'axix Banking', 'Better banking services', '2019-08-13', '2022-05-14');
+insert into projectinfo values(11, 'TMB Banking', 'Customoer Banking', '2014-4-23', '2018-11-30');
+update projectinfo set description='Better banking services' where projectId =11;
+/* asdc  order of decription be printed ,  and in decsrpition duplicate value is there , in that row projectname would be descding order*/
+select * from projectinfo order by description , projectName desc;
+select * from projectinfo where startdate > '2014-04-23' order by description , projectName desc;
+select max(projectId) as Maximum, min(projectId) as Minimum from projectinfo;
+select max(startdate) as Recent_project , min(startdate) as old_project from projectinfo;
+select max(projectId) as Maximum, min(projectId) as Minimum , count(projectId) as total from projectinfo;
+/* retrieve current date*/
+select curdate();
+select current_date();
+select curtime();/*current time*/
+select  curdate() as 'Today\'sdate' ,curtime() as 'current_time' ;
+select concat(curdate(),curtime()) 'Today\'s date';
+select concat("hello" ,user()) as welcome;/* user function return the user name*/
+select projectId, startdate from projectinfo;
+select projectId, startdate , startdate + 20 from projectinfo;
+select curdate(), date_add(curdate(), interval 10 day) from projectinfo;
+select curdate(), date_add(curdate(), interval 10 month);
+select curdate(), date_add(curdate(), interval 10 year);
+select curdate(), date_add(curdate(), interval 10 day) SubtractDay;
+select curdate(), date_add(curdate(), interval 10 month) SubtractMonth;
+select curdate(), date_add(curdate(), interval 10 year) SubtractDay;
+select year(curdate());
+select month(curdate());
+select day(curdate());
+select day('2020-10-27');
+select dayofweek(curdate());/* day number 1-mon,2-tue,3-wed..so on*/
+select dayofmonth(curdate());/*today date*/
+select dayofyear(curdate());/* like 365 days shows that*/
+select monthname(curdate());/*name of the month*/
+select month(curdate());/*month number*/
+
+
+/*string function */
+select projectName , length (projectName) from projectinfo;
+select projectName  from projectinfo  where length (projectName) >=9 and length(projectName) <=15;
+select projectName, substr(projectName,3) from projectinfo;/* from 3rd position*/
+select projectName, substr(projectName,3,13) from projectinfo;/* from 3rd to 13 th position*/
+select projectName,strcmp(projectName, 'B') from projectinfo;
+
+
+select abs(-90);
+select ceil(.75);
+select ceil(2.75);
+select ceil(2.15);
+
+select floor(2.75);
+select floor(2.15);
+
+select round(2.755);
+select round(2.755 ,2);
+select round(2.7558,3);
+
+select truncate(2.7845,2);
+select cos(0);
+select radians(3),log(1);
+select Pi(),rand(3.56);/* 3.56 is the maximum limit */
+
+/*conervison*/
+select convert('100.16',unsigned);
+select convert('100.36',unsigned) +100;
+select '100.36' + 100; /* Automatic conversion from string to integer*/
+select convert('-100.16',unsigned);
+select convert('-100.16',signed) + 100;
+select convert('-100.16',signed);
+
+/* grouping */
+use project1;
+select * from projectinfo;
+select startdate, count(*) from projectinfo group by month(startdate);/* duplicate value be grouped */
+select month(startdate) from projectinfo;/* return the month*/
+select count(*), description  from projectinfo group by description;
+alter table projectinfo add price float(10,2);
+update projectinfo set price=  8000000 where projectId in (1,2);
+update projectinfo set price=  9000000 where projectId in (5,4);
+update projectinfo set price=  9500000 where projectId in (6,7);
+
+select count(*) "Of projects" , sum(price) "Total Price", avg(price) "Average price" ,
+month(startdate) from projectinfo 
+group by month(startdate);
+select count(*) "Of projects" , sum(price) "Total Price", avg(price) "Average price" ,
+monthname(startdate) from projectinfo 
+group by month(startdate) order by count(*),monthname(startdate) desc;
+
+select count(*) "Of projects" , sum(price) "Total Price", avg(price) "Average price" ,
+monthname(startdate) from projectinfo where price is not null
+group by month(startdate) order by count(*),monthname(startdate) desc;
+
+select count(*) from projectinfo;
+
+select count(price) from projectinfo;
+select * from projectinfo;
+
+select count(price), sum(price), avg(price) from projectinfo;
+
+select projectName, price from projectinfo where price >(select price from projectinfo where projectName="BOOK BY SHOW");
+select * from projectinfo;
+use project1;
+select * from projectinfo;
+
+select projectName,price, startdate from projectinfo where month(startdate)=(select month(startdate) from projectinfo where projectName="HSBC core banking");
+select projectName,price, startdate from projectinfo where year(startdate)=(select year(startdate) from projectinfo where projectName="movie");
+/* only one subquery in equal operator left 1 and right 1 so error in this query*/
+select projectName,price, startdate from projectinfo where month(startdate)=(select month(startdate) from projectinfo where projectName="HSBC core banking" or projectName="movie1");
+/* IN */
+select projectName,price, startdate from projectinfo where month(startdate)in(select month(startdate) from projectinfo where projectName="HSBC core banking" or projectName="movie1");
+/* NOT IN */
+select projectName,price, startdate from projectinfo where month(startdate)not in(select month(startdate) from projectinfo where projectName="HSBC core banking" or projectName="movie1");
+/* ANY */
+select projectName, price from projectinfo where price < any (select price from projectinfo where projectId > 4);
+select price ,projectName from projectinfo where projectId > 4;
+/* empty table */
+select projectName, price from projectinfo where price < all (select price from projectinfo where projectId > 4);
+
+
+
+/* joins */
+use project1;
+create table Customers(CustomerID int primary key,CustomerName varchar(50) not null,projectId int);
+insert into  Customers values(1,'Smith' , 1);
+insert into  Customers values(2,'Anil' , 1);
+insert into  Customers values(3,'Kunal' , 2);
+insert into  Customers values(4,'Vikas' , 3);
+select * from projectinfo;
+update projectinfo set projectId = 3 where  projectName ='Indian Railways';
+select * from projectinfo;
+
+create table teaminfo( teamid int primary key, teamName varchar(50) not null, projectId int , foreign key(projectId) references projectinfo(projectId));
+insert into teaminfo values(100, 'Rail2k core Testing',3);
+insert into teaminfo values(101, 'core development',2);
+insert into teaminfo values(102, 'Rail2k core Design',3);
+insert into teaminfo values(103, 'Rail2k core Development',4);
+insert into teaminfo values(104, 'core Testing',5);
+insert into teaminfo values(105, 'core Integration',1);
+insert into teaminfo values(106, 'core Deploment',4);
+
+select count(*) from projectinfo,teaminfo;
+select * from projectinfo,teaminfo;
+select * from projectinfo,teaminfo where projectinfo.projectId = teaminfo.projectId;
+select * from projectinfo join teaminfo on projectinfo.projectId = teaminfo.projectId;
+select * from projectinfo join teaminfo using(projectId);
+select * from projectinfo natural join teaminfo;
+select * from projectinfo left outer join teaminfo on projectinfo.projectId = teaminfo.projectId;
+select * from projectinfo right outer join teaminfo on projectinfo.projectId = teaminfo.projectId;

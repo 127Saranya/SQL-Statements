@@ -1,0 +1,83 @@
+use assignmentproject;
+create table Customers(CustomerID int primary key,CustomerName varchar(50) not null,LocationID int);
+create table Location(LocationID int primary key, LocationName varchar(50) not null unique);
+create table Products(ProductsID int primary key, Description varchar(50) not null, ProductName varchar(50) not null, Quantity int , Price int ,PurchaseDate date);
+create table Orders(OrdersID int primary key,ProductID int ,CustomerID int , OrderDate date, ProductValue  float, ProductQuantity int);
+insert into  Customers values(1,'Smith' , 1);
+insert into  Customers values(2,'Anil' , 1);
+insert into  Customers values(3,'Kunal' , 2);
+insert into  Customers values(4,'Vikas' , 3);
+insert into  Location values(1,'Kolkatta');
+insert into  Location values(2,'New Delhi');
+insert into  Location values(3,'Mumbai');
+insert into  Location values(4,'Chennai');
+insert into  Location values(5,'Bangalore');
+insert into  Location values(6,'Hyderabad');
+insert into Products values (1,'Laptop','Compaq Presario' , 50, 40000, '2008-06-03');
+insert into Products values (2,'LaserJet Printer','HP LaserJetPro' , 36 ,6200, '2008-01-21');
+insert into Products values (3,'21” Color Television','Onida Multivision' , 20, 13000, '2008-09-17');
+insert into Products values (4,'17” Color Television','Onida Golden Eye',31, 12570,'2008-08-12');
+insert into Products values (5,'Fully Automatic Washing Machine','Samsung 2900' , 49 ,11876, '2008-10-29');
+insert into Orders values( 1,1, 3,'2008-06-19' ,10, 400000);
+insert into Orders values( 2,4, 3,'2008-11-27' ,5, 62850);
+insert into Orders values( 3,2, 1,'2008-02-13' ,5, 31000);
+insert into Orders values( 4,5, 1,'2008-10-31' ,3, 35628);
+insert into Orders values( 5,2, 2,'2008-02-03' ,7, 43400);
+insert into Orders values( 6,5, 4,'2008-11-16' ,4, 47434);
+insert into Orders values( 7,3, 4,'2008-09-21' ,4, 42000);
+insert into Orders values( 8,1, 1,'2008-09-08' ,6, 240000);
+update Products set Quantity=Quantity +((Quantity* 11)/100) where Quantity > 30;/*1*/
+/*2*/
+/*3*/Select CONCAT(UPPER(SUBSTRING(ProductName,1,1)),LOWER(SUBSTRING(ProductName,2))) AS ProductName , Description from Products;
+/*4*/
+/*5*/delete from Location where LocationName like 'H%' or LocationName like 'B%';
+/*6*/alter table Customers add ContactNo int unique;
+/*7*/alter table Products modify ProductName varchar(60);
+/*8*/alter table Customers modify CustomerName varchar(40);
+/*9*/alter table Location drop  column LocationID;
+select * from Location;
+/*10*/alter table Products modify PurchaseDate Varchar2(50);
+/*11*/ create table cus as select * from Customers where 1!=1;
+select * from cus;
+create table pro as select * from Products where 1!=1;
+select * from pro;
+create table loc as select * from Location where 1!=1;
+select * from loc;
+create table ord as select * from Orders where 1!=1;
+select * from ord;
+/*12*/ create table cus1 as select * from Customers;
+select * from cus1;
+create table pro1 as select * from Products;
+select * from pro1;
+create table loc1 as select * from Location;
+select * from loc1;
+create table ord1 as select * from Orders;
+select * from ord1;
+/*13*/
+/*14*/select * from Customers where CustomerID between 30 and 100;
+/*15*/ select * from Products where left (ProductName,1) in ('T') and right (ProductName , 1) in ('r');
+update Products set ProductName="Tasdenbvr" where ProductsID = 2;
+select* from Products;
+/*16*/ select * from Products where ProductName like ‘T___e%r’;
+/*17*/ update Products set ProductName="Oncda Multivision" where ProductsID = 3;
+select *  from Products where ProductName like '__c%';
+/*18*/update Customers set CustomerName="saranya127" where CustomerID = 3;
+select *  from Customers where CustomerName like '__________';
+/*19*/ Select c.CustomerName from Customers c , Location l
+where c.LocationID = l.LocationID
+and c.CustomerName like 'joh%'
+and l.LocationName ='New Delhi' or l.LocationName = 'Mumbai';
+select * from Location;
+/*21*/ update Products set Quantity = 29 where ProductsID = 5;
+select * from Products where Description ='Fully Automatic Washing Machine' or Description = 'Water Heaters'  and Quantity < 30;
+/*22*/ select * from Products where Price between 10000 and 30000 and Quantity < 50;
+/*23*/ update Products set Price = 4500 where ProductsID = 3;
+select *  from Products;
+select * from Products where Quantity < 70 and Price 
+between 4000 and 5675 or price between 800 and 1500 or price between 1501 and 1250;
+/*24*/ select * from Products where PurchaseDate not between '2000-08-03' and '2001-03-19';
+/*24 alternative doubt */ select * from Products
+where ProductsID not in (Select ProductsID from Products
+Where PurchaseDate between '2000-08-03' and '2001-03-19'
+ 			);
+

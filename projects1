@@ -1,0 +1,6 @@
+use projects1;
+create table contactlist(
+ contact_id int primary key,
+ contact_name varchar(50),
+ contact_number long);
+ 

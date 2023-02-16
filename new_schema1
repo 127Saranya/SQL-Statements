@@ -1,0 +1,19 @@
+use new_schema1;
+create table users(
+    User_name varchar(50) primary key,
+    user_password varchar(50) not null);
+insert into users values('Saranya','Saranya@126'),
+('Maha','Maha@123'),('hari','hari@123'),('eswari','esw@123');
+select * from users;
+update users set enabled=true;   
+
+create table authorities(username varchar(50) not null,
+authority varchar(50) not null,
+FOREIGN KEY (username) references users(username));
+
+insert into authorities values('Saranya','ROLE_ADMIN');
+insert into authorities values('Maha','ROLE_ADMIN');
+insert into authorities values('hari','ROLE_USER');
+insert into authorities values('eswari','ROLE_USER');
+
+select * from authorities;

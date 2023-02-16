@@ -1,0 +1,8 @@
+create table Employee1(E_id int primary key, firstname varchar(50), lastname varchar(50));
+insert into Employee1 values(2,'abi','ak');
+select * from Employee1;
+
+
+
+// This is project related schema, others row are insert by spring boot project,
+run the table, it shows many rows....

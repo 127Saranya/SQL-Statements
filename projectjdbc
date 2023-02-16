@@ -1,0 +1,8 @@
+use projectjdbc;
+create table employees( emplyId int,FIRST_NAME varchar(50), LAST_NAME varchar(50), SALARY int);
+delete from employees;
+describe employees;
+select * from employees;
+
+select * from employee1;
+

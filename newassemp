@@ -1,0 +1,44 @@
+use newassemp;
+create table Employee1(E_id int, firstname varchar(50), lastname varchar(50));
+insert into Employee1 values(1, 'Saranya', 'sivarajan');
+insert into Employee1 values(2,'abi','ak');
+select * from Employee1;
+delete from Employee1;
+Truncate table Employee1;
+delete E_id from Employee1 where lastname='ak';
+use newassemp;
+select * from employee;
+describe employee;
+Truncate table Employee1;
+describe Employee1;
+insert into Employee1 values(1, 'Saranya', 'sivarajan');
+insert into Employee1 values(2,'abi','ak');
+insert into Employee1 values(1, 'Saranya', 'sivarajan');
+insert into Employee1 values(2,'abi','ak');
+
+
+
+/*Primary key generator for Table*/
+create table EmployeeData(E_id int , firstname varchar(50), lastname varchar(50));
+alter table EmployeeData modify E_id int primary key;
+create table EmployeeIdList(E_id int primary key);
+insert into EmployeeIdList values(0);
+select * from EmployeeIdList;
+Truncate table EmployeeIdList;
+select * from EmployeeData;
+
+update EmployeeIdList set next_val=5;
+select * from information_schema.columns
+ where table_name like 'employee%';
+select * from information_schema.tables;
+select * from information_schema.columns; 
+
+CREATE TABLE EmployeeListOfId (
+ID int primary key AUTO_INCREMENT ,
+firstname  varchar(50) not null,
+lastname  varchar(50) not null); 
+ 
+alter table EmployeeListOfId AUTO_INCREMENT =100; 
+insert into EmployeeListOfId(firstname, lastname) values('Mageshwari','S');
+insert into EmployeeListOfId(firstname, lastname) values('Sivarajan','K');
+select * from EmployeeListOfId;
